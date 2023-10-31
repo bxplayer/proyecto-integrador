@@ -1,0 +1,33 @@
+server:
+  port: ${PORT:8081}
+
+spring:
+  application:
+    name: ms-users
+  security:
+    oauht2:
+      client:
+        provider:
+          keycloak:
+            token-uri: http://localhost:8080/realms/eventos/protocol/openid-connect/token
+        registration:
+          keycloak:
+            authorizationGrantType: client_credentials
+            client-id: users-client
+            client-secret: users-secret
+
+
+dh:
+  keycloak:
+    serverUrl: http://localhost:8080/
+    realm: master
+    username: ${KEYCLOAK_USER:admin}
+    password: ${KEYCLOAK_PASSWORD:admin}
+    clientId: admin-cli
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        application.properties:
