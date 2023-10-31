@@ -8,5 +8,5 @@ import java.util.Set;
 public class ProductDTO {
     private Long id;
     private String name;
-    private Set<Long> associationIds;
+    //private Set<Long> associationIds;
 }
