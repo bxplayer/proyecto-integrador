@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/eventlyDB
+    username: loco
+    password: pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        ddl-auto: create-drop
+        cache:
+          use_second_level_cache: false
+          use_query_cache: false
+      show-sql: true
+  logging:
+    level:
+      org.hibernate.SQL: debug
