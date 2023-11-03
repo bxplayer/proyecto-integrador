@@ -3,6 +3,7 @@ package com.integrador.evently.activities.dto;
 import com.integrador.evently.categories.dto.CategoryDTO;
 import com.integrador.evently.photo.dto.PhotoDTO;
 import com.integrador.evently.products.dto.ProductDTO;
+import com.integrador.evently.users.model.Users;
 import lombok.Data;
 
 import java.util.Date;
@@ -20,4 +21,5 @@ public class ActivityDTO {
     private CategoryDTO category;
     private List<PhotoDTO> photos;
     private List<ProductDTO> products;
+    private Users user;
 }
