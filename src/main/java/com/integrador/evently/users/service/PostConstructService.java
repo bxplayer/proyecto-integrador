@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.List;
 
-@Service
+//@Service
 public class PostConstructService {
     private final KeycloakClient keycloakClient;
 
@@ -16,7 +16,7 @@ public class PostConstructService {
         this.keycloakClient = keycloakClient;
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void initialize() {
         String realmName = "eventos";
 
