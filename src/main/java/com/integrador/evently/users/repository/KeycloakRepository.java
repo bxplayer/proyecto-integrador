@@ -29,10 +29,9 @@ public class KeycloakRepository implements UserRepository {
                 .build();
     }
 
-    public User findById(String id){
-        UserRepresentation userRepresentation = keycloakClient.realm(reino).users().get(id).toRepresentation();
+    public User findById(Long id){
+        UserRepresentation userRepresentation = keycloakClient.realm(reino).users().get(String.valueOf(id)).toRepresentation();
         User user = toUser(userRepresentation);
-
         return user;
     }
 

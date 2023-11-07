@@ -6,7 +6,7 @@ import com.integrador.evently.users.model.User;
 
 public interface UserRepository {
 
-  User findById(String id);
+  User findById(Long id);
 
   String addUser(NewUserDto user);
 

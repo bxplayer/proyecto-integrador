@@ -19,7 +19,7 @@ public class UserController {
 
 //    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
-    public ResponseEntity<User> getById(@PathVariable String id){
+    public ResponseEntity<User> getById(@PathVariable Long id){
         return ResponseEntity.ok().body((service.findById(id)));
     }
 
