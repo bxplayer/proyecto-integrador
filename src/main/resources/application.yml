@@ -1,3 +1,5 @@
+server:
+  port: 8090
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/eventlyDB
@@ -8,7 +10,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-        ddl-auto: create-drop
+        ddl-auto: create-update
         cache:
           use_second_level_cache: false
           use_query_cache: false
@@ -16,3 +18,22 @@ spring:
   logging:
     level:
       org.hibernate.SQL: debug
+  security:
+    oauht2:
+      client:
+        provider:
+          keycloak:
+            token-uri: http://localhost:8080/realms/eventos/protocol/openid-connect/token
+        registration:
+          keycloak:
+            authorizationGrantType: client_credentials
+            client-id: users-client
+            client-secret: users-secret
+
+dh:
+  keycloak:
+    serverUrl: http://localhost:8080/
+    realm: eventos
+    username: ${KEYCLOAK_USER:admin}
+    password: ${KEYCLOAK_PASSWORD:admin}
+    clientId: admin-cli
