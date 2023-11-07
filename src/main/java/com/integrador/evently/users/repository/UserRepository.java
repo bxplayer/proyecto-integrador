@@ -1,14 +1,13 @@
 package com.integrador.evently.users.repository;
 
-
-import com.integrador.evently.users.dto.NewUserDto;
 import com.integrador.evently.users.model.User;
+import org.springframework.data.domain.Example;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository {
+import java.util.Optional;
 
-  User findById(Long id);
-
-  String addUser(NewUserDto user);
-
-  void delete(String id);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUserName(String userName);
 }

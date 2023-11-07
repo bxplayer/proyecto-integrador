@@ -2,29 +2,28 @@ package com.integrador.evently.users.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.integrador.evently.users.model.UserType;
-import lombok.Getter;
+import com.integrador.evently.users.repository.PasswordHashing;
 
-@Getter
 public class NewUserDto {
-    private final String name;
 
-    private final String surname;
-
-    private final String username;
-
-    private final String email;
-
-    private final String password;
-
-    private final UserType type;
+    private String userName;
+    private String password;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private UserType userType;
 
     @JsonCreator
-    public NewUserDto(String name, String surname, String username, String email, String password, UserType type) {
-        this.name = name;
-        this.surname = surname;
-        this.username = username;
+    public NewUserDto(String userName, String password, String email, String firstName, String lastName, UserType userType) {
+        this.userName = userName;
+        try {
+            this.password = PasswordHashing.generateHashedPassword(password);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         this.email = email;
-        this.password = password;
-        this.type = type;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userType = userType;
     }
 }

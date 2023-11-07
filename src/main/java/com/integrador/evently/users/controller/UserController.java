@@ -1,39 +1,42 @@
 package com.integrador.evently.users.controller;
 
-import com.integrador.evently.users.dto.NewUserDto;
-import com.integrador.evently.users.model.User;
+
+import com.integrador.evently.users.dto.UserDto;
 import com.integrador.evently.users.service.UserService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
-@RequestMapping("/users")
-@RequiredArgsConstructor
-
+@RequestMapping("/user")
 public class UserController {
 
-    private final UserService service;
+    private final UserService userService;
 
-//    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getById(@PathVariable Long id){
-        return ResponseEntity.ok().body((service.findById(id)));
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @PostMapping()
-    public ResponseEntity<Map<String, String>> createUser(@RequestBody NewUserDto user){
-        String userId = service.createUser(user);
-        return ResponseEntity.ok().body(Map.of("id", userId));
+    @GetMapping("/{userId}")
+    public UserDto getUserById(@PathVariable Long userId) {
+        return userService.getUserById(userId);
     }
 
-    // TODO: 2021-10-13 @PreAuthorize("isAuthenticated(), hasRole('ADMIN')")
-//    @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id){
-        service.delete(id);
-        return ResponseEntity.ok().build();
+    @GetMapping
+    public List<UserDto> getAllUsers() {
+        return userService.getAllUsers();
     }
+
+    @PostMapping
+    public UserDto createUser(@RequestBody UserDto userDto) {
+        return userService.createUser(userDto);
+    }
+
+    @DeleteMapping("/{userId}")
+    public void deleteUserById(@PathVariable Long userId) {
+        userService.deleteUserById(userId);
+    }
+
+
+
 }

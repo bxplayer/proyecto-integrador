@@ -1,17 +1,17 @@
 package com.integrador.evently.booking.dto;
 
-import com.integrador.evently.activities.dto.ActivityDTO;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 public class BookingDTO {
-    private Long id;
+    @NotNull
     private Long userId;
-    private List<ActivityDTO> activities;
-    private Date startDateTime;
-    private Date endDateTime;
+    @NotNull
+    private LocalDateTime startDateTime;
+    @NotNull
+    private LocalDateTime endDateTime;
 
 }

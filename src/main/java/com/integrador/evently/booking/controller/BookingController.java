@@ -3,6 +3,7 @@ package com.integrador.evently.booking.controller;
 import com.integrador.evently.booking.dto.BookingDTO;
 import com.integrador.evently.booking.model.Booking;
 import com.integrador.evently.booking.service.BookingService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,8 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<BookingDTO> createBooking(@RequestBody Booking booking) throws Exception {
-        return bookingService.createBooking(booking);
+    public ResponseEntity<Booking> createBooking(@RequestBody @Valid BookingDTO booking) throws Exception {
+        return new ResponseEntity<>(bookingService.createBooking(booking), HttpStatus.CREATED);
     }
 
     @GetMapping("/{userId}")

@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,14 +33,11 @@ public class BookingService {
                 .collect(Collectors.toList());
     }
 
-    public ResponseEntity<BookingDTO> createBooking(Booking booking) throws Exception {
-        User userOptional = userRepository.findById(booking.getUserId());
-       if (userOptional != null) {
-            bookingRepository.save(booking);
-        } else {
-            throw new Exception("User not found");
-       }
-        return null;
+    public Booking createBooking(BookingDTO booking) throws Exception {
+        User userOptional = userRepository.findById(booking.getUserId())
+                .orElseThrow(() -> new Exception("User not found"));
+        Booking bookingEntity = modelMapper.map(booking, Booking.class);
+        return bookingRepository.save(bookingEntity);
     }
 
 

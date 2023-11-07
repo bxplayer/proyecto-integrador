@@ -19,12 +19,3 @@ services:
       PMA_HOST: mysql
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: admin_root
-
-  keycloak:
-    image: jboss/keycloak:latest
-    container_name: keycloak
-    environment:
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
-    ports:
-      - "8080:8080"
