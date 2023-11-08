@@ -7,12 +7,10 @@ import com.integrador.evently.photo.dto.PhotoDTO;
 import com.integrador.evently.photo.interfaces.IPhotoService;
 import com.integrador.evently.photo.model.Photo;
 import com.integrador.evently.photo.repository.PhotoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 @Service
 public class PhotoService implements IPhotoService {
 

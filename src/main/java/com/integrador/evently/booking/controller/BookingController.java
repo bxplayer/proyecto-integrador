@@ -6,6 +6,7 @@ import com.integrador.evently.booking.service.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody @Valid BookingDTO booking) throws Exception {
+    public ResponseEntity<Booking> createBooking(@RequestBody @Validated @Valid BookingDTO booking) throws Exception {
         return new ResponseEntity<>(bookingService.createBooking(booking), HttpStatus.CREATED);
     }
 

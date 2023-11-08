@@ -1,6 +1,5 @@
 package com.integrador.evently.users.service;
 
-import com.integrador.evently.users.model.User;
 import com.integrador.evently.users.dto.UserDto;
 import com.integrador.evently.users.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -30,15 +29,6 @@ public class UserService {
         return userRepository.findById(userId)
                 .map(user -> modelMapper.map(user, UserDto.class))
                 .orElseThrow(() -> new RuntimeException("User not found"));
-    }
-
-    public UserDto createUser(UserDto userDto) {
-        userRepository.findByUserName(userDto.getUserName())
-                .ifPresent(user -> {
-                    throw new RuntimeException("User already exists");
-                });
-        User user = modelMapper.map(userDto, User.class);
-        return modelMapper.map(userRepository.save(user), UserDto.class);
     }
 
     public void deleteUserById(Long userId) {

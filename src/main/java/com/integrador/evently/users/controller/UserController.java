@@ -27,16 +27,8 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping
-    public UserDto createUser(@RequestBody UserDto userDto) {
-        return userService.createUser(userDto);
-    }
-
     @DeleteMapping("/{userId}")
     public void deleteUserById(@PathVariable Long userId) {
         userService.deleteUserById(userId);
     }
-
-
-
 }

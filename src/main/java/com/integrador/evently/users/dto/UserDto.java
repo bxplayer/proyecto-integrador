@@ -1,17 +1,6 @@
 package com.integrador.evently.users.dto;
 
 import com.integrador.evently.users.model.UserType;
-import lombok.Data;
 
-@Data
-public class UserDto {
-
-    private Long id;
-    private String userName;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private UserType userType;
-
-
+public record UserDto(Long id, String userName, String email, String firstName, String lastName, UserType type) {
 }
