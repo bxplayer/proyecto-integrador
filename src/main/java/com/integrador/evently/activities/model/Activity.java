@@ -3,6 +3,7 @@ package com.integrador.evently.activities.model;
 import com.integrador.evently.categories.model.Category;
 import com.integrador.evently.photo.model.Photo;
 import com.integrador.evently.products.model.Product;
+import com.integrador.evently.users.model.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,7 +25,9 @@ public class Activity {
     private String address;
     private double price;
 
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

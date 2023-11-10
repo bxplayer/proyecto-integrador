@@ -6,10 +6,13 @@ spring:
     username: loco
     password: pass
     driver-class-name: com.mysql.cj.jdbc.Driver
+    timeout: 60000
   jpa:
     hibernate:
       dialect: org.hibernate.dialect.MySQLDialect
       ddl-auto: none
+  flyway:
+    enabled: true
 
   logging:
     level:

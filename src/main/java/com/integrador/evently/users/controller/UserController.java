@@ -2,6 +2,7 @@ package com.integrador.evently.users.controller;
 
 
 import com.integrador.evently.users.dto.UserDto;
+import com.integrador.evently.users.model.UserType;
 import com.integrador.evently.users.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,11 @@ public class UserController {
     @GetMapping("/{userId}")
     public UserDto getUserById(@PathVariable Long userId) {
         return userService.getUserById(userId);
+    }
+
+    @GetMapping("/type/{userType}")
+    public List<UserDto> getUserByType(@PathVariable String userType) {
+        return userService.getUsersByType(userType);
     }
 
     @GetMapping

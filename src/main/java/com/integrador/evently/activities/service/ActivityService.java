@@ -4,6 +4,7 @@ import com.integrador.evently.activities.dto.ActivityDTO;
 import com.integrador.evently.activities.interfaces.IActivityService;
 import com.integrador.evently.activities.model.Activity;
 import com.integrador.evently.activities.repository.ActivityRepository;
+import com.integrador.evently.users.dto.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
