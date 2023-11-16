@@ -1,8 +1,8 @@
 package com.integrador.evently.photo.service;
 
-import com.integrador.evently.activities.dto.ActivityDTO;
-import com.integrador.evently.activities.model.Activity;
-import com.integrador.evently.activities.service.ActivityService;
+import com.integrador.evently.providers.dto.ProviderDTO;
+import com.integrador.evently.providers.model.Provider;
+import com.integrador.evently.providers.service.ProviderService;
 import com.integrador.evently.photo.dto.PhotoDTO;
 import com.integrador.evently.photo.interfaces.IPhotoService;
 import com.integrador.evently.photo.model.Photo;
@@ -15,12 +15,12 @@ import java.util.List;
 public class PhotoService implements IPhotoService {
 
     private final PhotoRepository photoRepository;
-    private final ActivityService activityService;
+    private final ProviderService providerService;
     private final ModelMapper modelMapper;
 
-    public PhotoService(ModelMapper modelMapper, PhotoRepository photoRepository, ActivityService activityService) {
+    public PhotoService(ModelMapper modelMapper, PhotoRepository photoRepository, ProviderService providerService) {
         this.photoRepository = photoRepository;
-        this.activityService = activityService;
+        this.providerService = providerService;
         this.modelMapper = modelMapper;
     }
 
@@ -42,9 +42,9 @@ public class PhotoService implements IPhotoService {
     @Override
     public PhotoDTO savePhoto(PhotoDTO photoDTO) {
         Photo photo = modelMapper.map(photoDTO, Photo.class);
-        ActivityDTO activityDTO = activityService.getActivityById(photoDTO.getActivityId());
-        if (activityDTO != null) {
-            Activity activity = modelMapper.map(activityDTO, Activity.class);
+        ProviderDTO providerDTO = providerService.getProviderById(photoDTO.getActivityId());
+        if (providerDTO != null) {
+            Provider provider = modelMapper.map(providerDTO, Provider.class);
             //photo.setActivity(activity);
         }
 

@@ -1,11 +1,10 @@
 package com.integrador.evently.booking.model;
 
-import com.integrador.evently.activities.model.Activity;
+import com.integrador.evently.products.model.Product;
+import com.integrador.evently.providers.model.Provider;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.Date;
 import java.util.List;
@@ -23,11 +22,11 @@ public class Booking {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "booking_activity",
+            name = "booking_product",
             joinColumns = @JoinColumn(name = "booking_id"),
-            inverseJoinColumns = @JoinColumn(name = "activity_id")
+            inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private List<Activity> activities;
+    private List<Product> products;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_datetime")
