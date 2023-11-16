@@ -27,4 +27,4 @@ amazonProperties:
   endpointUrl: https://s3.us-east-1.amazonaws.com
   accessKey: AKIAUNATVL73DEMNXPUY
   secretKey: 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
-  bucketName: evently-bucket
+  bucketName: eventify-bucket
