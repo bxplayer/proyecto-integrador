@@ -1,5 +1,6 @@
 package com.integrador.evently.providers.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.integrador.evently.categories.model.Category;
 import com.integrador.evently.products.model.Product;
 import com.integrador.evently.users.model.User;
@@ -32,5 +33,6 @@ public class Provider {
     //private List<Photo> photos;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> products;
 }

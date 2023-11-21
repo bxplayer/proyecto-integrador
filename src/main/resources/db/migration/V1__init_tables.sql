@@ -91,35 +91,22 @@ INSERT INTO provider (name, information, address, user_id) VALUES
     VALUES ('Luces de neón', 765.0, "Set de 8 luces de neón", 3,  3);
 
 
-  CREATE TABLE booking_product (
-    booking_id BIGINT,
-    product_id BIGINT,
-    PRIMARY KEY (booking_id, product_id),
-    FOREIGN KEY (booking_id) REFERENCES booking(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE
-  );
- -- INSERT para la relación entre activity y product
-  INSERT INTO booking_product (booking_id, product_id)
-  VALUES (1, 1); -- Asociar Actividad 1 con Producto 1
-
-  INSERT INTO booking_product (booking_id, product_id)
-  VALUES (1, 2); -- Asociar Actividad 1 con Producto 2
-
-  INSERT INTO booking_product (booking_id, product_id)
-  VALUES (2, 3); -- Asociar Actividad 2 con Producto 2
-
   CREATE TABLE photo (
       id BIGINT PRIMARY KEY AUTO_INCREMENT,
       url VARCHAR(255) NOT NULL,
       is_main BOOLEAN NOT NULL,
-      activity_id BIGINT,
-      FOREIGN KEY (activity_id) REFERENCES activity(id)
+      provider_id BIGINT,
+      FOREIGN KEY (provider_id) REFERENCES provider(id)
   );
  -- Inserts de prueba
-  INSERT INTO photo (url, is_main, activity_id) VALUES
-  ('https://example.com/photo1.jpg', true, 1),
-  ('https://example.com/photo2.jpg', false, 1),
-  ('https://example.com/photo3.jpg', true, 2);
+  INSERT INTO photo (url, is_main, provider_id)
+  VALUES ('https://example.com/photo1.jpg', true, 1);
+
+  INSERT INTO photo (url, is_main, provider_id)
+  VALUES ('https://example.com/photo2.jpg', false, 1);
+
+  INSERT INTO photo (url, is_main, provider_id)
+  VALUES ('https://example.com/photo3.jpg', true, 2);
 
 
   CREATE TABLE booking (
@@ -133,6 +120,23 @@ INSERT INTO provider (name, information, address, user_id) VALUES
   (1,'2023-11-05 11:00:00', '2023-11-05 11:30:00'),
   (2,'2023-12-06 15:00:00', '2023-12-06 16:30:00');
 
+    CREATE TABLE booking_product (
+      booking_id BIGINT,
+      product_id BIGINT,
+      PRIMARY KEY (booking_id, product_id),
+      FOREIGN KEY (booking_id) REFERENCES booking(id) ON DELETE CASCADE,
+      FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE
+    );
+   -- INSERT para la relación entre activity y product
+    INSERT INTO booking_product (booking_id, product_id)
+    VALUES (1, 1); -- Asociar Actividad 1 con Producto 1
+
+    INSERT INTO booking_product (booking_id, product_id)
+    VALUES (1, 2); -- Asociar Actividad 1 con Producto 2
+
+    INSERT INTO booking_product (booking_id, product_id)
+    VALUES (2, 3); -- Asociar Actividad 2 con Producto 2
+
   CREATE TABLE provider_category (
       provider_id BIGINT,
       category_id BIGINT,
@@ -144,5 +148,5 @@ INSERT INTO provider (name, information, address, user_id) VALUES
   INSERT INTO provider_category (provider_id, category_id) VALUES
   (1, 1),
   (2, 2),
-  (3, 3);
+  (3, 3),
   (3, 4);

@@ -1,5 +1,6 @@
 package com.integrador.evently.categories.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.integrador.evently.products.model.Product;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -15,5 +16,6 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> products;
 }
