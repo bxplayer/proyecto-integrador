@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -30,10 +31,10 @@ public class Booking {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_datetime")
-    private Date startDateTime;
+    private LocalDateTime startDateTime;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_datetime")
-    private Date endDateTime;
+    private LocalDateTime endDateTime;
 
 }
