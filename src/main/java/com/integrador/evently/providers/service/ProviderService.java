@@ -1,5 +1,6 @@
 package com.integrador.evently.providers.service;
 
+import com.integrador.evently.providers.dto.NewProviderDTO;
 import com.integrador.evently.providers.dto.ProviderDTO;
 import com.integrador.evently.providers.interfaces.IProviderService;
 import com.integrador.evently.providers.model.Provider;
@@ -35,33 +36,27 @@ public class ProviderService implements IProviderService {
     }
 
     @Override
-    public ProviderDTO saveProvider(ProviderDTO providerDTO) {
+    public ProviderDTO saveProvider(NewProviderDTO providerDTO) {
         Provider provider = modelMapper.map(providerDTO, Provider.class);
         provider = providerRepository.save(provider);
         return modelMapper.map(provider, ProviderDTO.class);
     }
 
-    @Override
-    public ProviderDTO updateProvider(Long id, ProviderDTO providerDTO) {
-        Provider provider = providerRepository.findById(id).orElse(null);
-
-        if (provider != null) {
-            setProvider(provider, providerDTO);
-            Provider updatedProvider = providerRepository.save(provider);
-            return modelMapper.map(updatedProvider, ProviderDTO.class);
-        }
-
-        return null;
-    }
-
-    @Override
-    public void deleteProvider(Long id) {
-        providerRepository.deleteById(id);
-    }
-
-    private void setProvider(Provider provider, ProviderDTO providerDTO) {
-        provider.setName(providerDTO.getName());
-        provider.setInformation(providerDTO.getInformation());
-        provider.setAddress(providerDTO.getAddress());
-    }
+//    @Override
+//    public ProviderDTO updateProvider(Long id, ProviderDTO providerDTO) {
+//        Provider provider = providerRepository.findById(id).orElse(null);
+//
+//        if (provider != null) {
+//            setProvider(provider, providerDTO);
+//            Provider updatedProvider = providerRepository.save(provider);
+//            return modelMapper.map(updatedProvider, ProviderDTO.class);
+//        }
+//
+//        return null;
+//    }
+//
+//    @Override
+//    public void deleteProvider(Long id) {
+//        providerRepository.deleteById(id);
+//    }
 }

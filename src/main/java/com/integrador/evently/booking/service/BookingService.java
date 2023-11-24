@@ -37,13 +37,9 @@ public class BookingService {
     }
 
     public Booking createBooking(BookingDTO booking) throws Exception {
-        if(booking.getEndDateTime().isBefore(booking.getStartDateTime())){
-            throw new Exception("Booking startDate is after endDate");
-        }
-
-        User userOptional = userRepository.findById(booking.getUserId())
+        userRepository.findById(booking.getUserId())
                 .orElseThrow(() -> new Exception("User not found"));
-        Optional<List<ProductDTO>> productsInConflict = checkAvailability(booking);
+        List<ProductDTO> productsInConflict = checkAvailability(booking);
 
         if(productsInConflict.isPresent()){
             throw new Exception("The following products are already booked " + productsInConflict);
@@ -77,11 +73,11 @@ public class BookingService {
         }
     }
 
-    public Optional<List<ProductDTO>> checkAvailability(BookingDTO booking){
+    public List<ProductDTO> checkAvailability(BookingDTO booking){
         Optional<List<BookingDTO>> bookings = getBookingsByDateRange(booking.getStartDateTime(), booking.getEndDateTime());
 
         if (bookings.isEmpty()){
-            return Optional.empty();
+            return List.of();
         }
 
         List<ProductDTO> productsInConflict = new java.util.ArrayList<>();

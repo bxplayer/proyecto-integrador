@@ -1,5 +1,6 @@
 package com.integrador.evently.providers.controller;
 
+import com.integrador.evently.providers.dto.NewProviderDTO;
 import com.integrador.evently.providers.dto.ProviderDTO;
 import com.integrador.evently.providers.interfaces.IProviderController;
 import com.integrador.evently.providers.service.ProviderService;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/provider")
+@CrossOrigin
 public class ProviderController implements IProviderController {
 
     private final ProviderService providerService;
@@ -33,25 +35,25 @@ public class ProviderController implements IProviderController {
     }
 
     @PostMapping
-    public ResponseEntity<ProviderDTO> saveProvider(@RequestBody ProviderDTO providerDTO) {
+    public ResponseEntity<ProviderDTO> saveProvider(@RequestBody NewProviderDTO providerDTO) {
         ProviderDTO savedProvider= providerService.saveProvider(providerDTO);
         return new ResponseEntity<>(savedProvider, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProviderDTO> updateProvider(@PathVariable Long id, @RequestBody ProviderDTO providerDTO) {
-        ProviderDTO updatedProvider= providerService.updateProvider(id, providerDTO);
-
-        if (updatedProvider != null) {
-            return ResponseEntity.ok(updatedProvider);
-        }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @Override
-    public void deleteProvider(Long id) {
-        providerService.deleteProvider(id);
-        //return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ProviderDTO> updateProvider(@PathVariable Long id, @RequestBody ProviderDTO providerDTO) {
+//        ProviderDTO updatedProvider= providerService.updateProvider(id, providerDTO);
+//
+//        if (updatedProvider != null) {
+//            return ResponseEntity.ok(updatedProvider);
+//        }
+//
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
+//
+//    @Override
+//    public void deleteProvider(Long id) {
+//        providerService.deleteProvider(id);
+//        //return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 }

@@ -5,6 +5,8 @@ import com.integrador.evently.providers.model.Provider;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 public class Product {
@@ -14,6 +16,11 @@ public class Product {
     private String name;
     private Double price;
     private String description;
+
+    @ElementCollection
+    @CollectionTable(name = "product_image_url", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "url")
+    private List<String> imageUrls;
 
     @ManyToOne
     @JoinColumn(name = "provider_id")

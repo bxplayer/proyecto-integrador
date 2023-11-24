@@ -17,8 +17,9 @@ public class Provider {
     private String name;
     private String information;
     private String address;
+    private String imageUrl;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -28,11 +29,4 @@ public class Provider {
             joinColumns = @JoinColumn(name = "provider_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> category;
-
-    //@OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
-    //private List<Photo> photos;
-
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Product> products;
 }

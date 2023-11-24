@@ -1,11 +1,10 @@
 package com.integrador.evently.booking.dto;
 
-import com.integrador.evently.products.dto.ProductDTO;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -13,10 +12,7 @@ public class BookingDTO {
     @NotNull
     private Long userId;
     @NotNull
-    private LocalDateTime startDateTime;
+    private LocalDate eventDate;
     @NotNull
-    private LocalDateTime endDateTime;
-    @NotNull
-    private List<ProductDTO> products;
-
+    private List<Long> productIds;
 }

@@ -7,7 +7,9 @@ import com.integrador.evently.products.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +37,19 @@ public class ProductService implements IProductService {
         return (product != null) ? modelMapper.map(product, ProductDTO.class) : null;
     }
 
+    public boolean checkProductAvailabilityInBookings(Long productId, LocalDate eventDate) {
+        List<Product> products = productRepository.findProductAvailabilityInBookings(productId, eventDate);
+        return products.size() == 0;
+    }
+
+    public List<ProductDTO> getAllAvailableProductsByEventDate(LocalDate eventDate) {
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .filter(product -> checkProductAvailabilityInBookings(product.getId(), eventDate))
+                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public ProductDTO saveProduct(ProductDTO productDTO) {
         Product product = modelMapper.map(productDTO, Product.class);
@@ -53,6 +68,14 @@ public class ProductService implements IProductService {
         }
 
         return null;
+    }
+
+    public List<ProductDTO> getAllProductsByCategory(Long categoryId) {
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .filter(product -> Objects.equals(product.getCategory().getId(), categoryId))
+                .map((p) -> modelMapper.map(p, ProductDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

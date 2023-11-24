@@ -1,11 +1,9 @@
 package com.integrador.evently.categories.dto;
 
-
 import lombok.Data;
 
 @Data
-public class CategoryDTO {
-    private Long id;
+public class NewCategoryDTO {
     private String name;
     private String imageUrl;
 }

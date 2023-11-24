@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
+@CrossOrigin
 public class ProductController implements IProductController {
 
     private final ProductService productService;
@@ -29,6 +31,22 @@ public class ProductController implements IProductController {
         ProductDTO productDTO = productService.getProductById(id);
         return (productDTO != null)
                 ? new ResponseEntity<>(productDTO, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<ProductDTO>> getAvailableProductsByEventDate(@RequestParam LocalDate eventDate) {
+        List<ProductDTO> products = productService.getAllAvailableProductsByEventDate(eventDate);
+        return (products.size() > 0)
+                ? new ResponseEntity<>(products, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/categories/{id}")
+    public ResponseEntity<List<ProductDTO>> getAllProductsByCategory(@PathVariable Long id) {
+        List<ProductDTO> products = productService.getAllProductsByCategory(id);
+        return (products.size() > 0)
+                ? new ResponseEntity<>(products, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

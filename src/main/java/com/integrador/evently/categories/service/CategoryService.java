@@ -1,6 +1,7 @@
 package com.integrador.evently.categories.service;
 
 import com.integrador.evently.categories.dto.CategoryDTO;
+import com.integrador.evently.categories.dto.NewCategoryDTO;
 import com.integrador.evently.categories.interfaces.ICategoryService;
 import com.integrador.evently.categories.model.Category;
 import com.integrador.evently.categories.repository.CategoryRepository;
@@ -35,7 +36,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public CategoryDTO saveCategory(CategoryDTO categoryDTO) {
+    public CategoryDTO saveCategory(NewCategoryDTO categoryDTO) {
         Category category = modelMapper.map(categoryDTO, Category.class);
         category = categoryRepository.save(category);
         return modelMapper.map(category, CategoryDTO.class);

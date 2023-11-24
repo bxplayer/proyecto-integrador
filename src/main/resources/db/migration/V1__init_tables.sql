@@ -1,5 +1,8 @@
+-- noinspection SqlNoDataSourceInspectionForFile
 
-  DROP TABLE IF EXISTS users;
+-- noinspection SqlDialectInspectionForFile
+
+DROP TABLE IF EXISTS users;
   DROP TABLE IF EXISTS category;
   DROP TABLE IF EXISTS provider;
   DROP TABLE IF EXISTS photo;
@@ -41,7 +44,8 @@
 
 CREATE TABLE category (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255)
 );
 
 INSERT INTO category (name) VALUES ('Vestimenta');
@@ -55,6 +59,7 @@ CREATE TABLE provider (
     information VARCHAR(255),
     address VARCHAR(255),
     user_id BIGINT,
+    image_url VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
@@ -80,6 +85,14 @@ INSERT INTO provider (name, information, address, user_id) VALUES
     FOREIGN KEY (category_id) REFERENCES category(id)
   );
 
+
+  CREATE TABLE product_image_url (
+   product_Id BIGINT,
+   url VARCHAR(255) NOT NULL,
+   FOREIGN KEY (product_Id) REFERENCES product(id)
+  );
+
+
     -- INSERT para product
     INSERT INTO product (name, price, description, provider_id, category_id)
     VALUES ('Vestido de novia', 600.0, "Vestido en tela sampo de calidad", 1,  1);
@@ -91,34 +104,15 @@ INSERT INTO provider (name, information, address, user_id) VALUES
     VALUES ('Luces de neón', 765.0, "Set de 8 luces de neón", 3,  3);
 
 
-  CREATE TABLE photo (
-      id BIGINT PRIMARY KEY AUTO_INCREMENT,
-      url VARCHAR(255) NOT NULL,
-      is_main BOOLEAN NOT NULL,
-      provider_id BIGINT,
-      FOREIGN KEY (provider_id) REFERENCES provider(id)
-  );
- -- Inserts de prueba
-  INSERT INTO photo (url, is_main, provider_id)
-  VALUES ('https://example.com/photo1.jpg', true, 1);
-
-  INSERT INTO photo (url, is_main, provider_id)
-  VALUES ('https://example.com/photo2.jpg', false, 1);
-
-  INSERT INTO photo (url, is_main, provider_id)
-  VALUES ('https://example.com/photo3.jpg', true, 2);
-
-
   CREATE TABLE booking (
       id BIGINT AUTO_INCREMENT PRIMARY KEY,
       user_id BIGINT,
-      start_datetime TIMESTAMP,
-      end_datetime TIMESTAMP
+      event_date TIMESTAMP
   );
 
-  INSERT INTO booking (user_id, start_datetime, end_datetime) VALUES
-  (1,'2023-11-05 11:00:00', '2023-11-05 11:30:00'),
-  (2,'2023-12-06 15:00:00', '2023-12-06 16:30:00');
+  INSERT INTO booking (user_id, event_date) VALUES
+  (1,'2023-11-05 11:00:00'),
+  (2,'2023-12-06 15:00:00');
 
     CREATE TABLE booking_product (
       booking_id BIGINT,

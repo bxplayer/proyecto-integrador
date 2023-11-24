@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -30,11 +31,7 @@ public class Booking {
     private List<Product> products;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "start_datetime")
-    private LocalDateTime startDateTime;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_datetime")
-    private LocalDateTime endDateTime;
+    @Column(name = "event_datetime")
+    private LocalDate eventDate;
 
 }
