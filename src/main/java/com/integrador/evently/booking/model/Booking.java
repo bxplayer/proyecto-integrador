@@ -22,7 +22,7 @@ public class Booking {
 
     private Long userId;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "booking_product",
             joinColumns = @JoinColumn(name = "booking_id"),

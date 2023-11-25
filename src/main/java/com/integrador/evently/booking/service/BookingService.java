@@ -5,7 +5,7 @@ import com.integrador.evently.booking.model.Booking;
 import com.integrador.evently.booking.repository.BookingRepository;
 import com.integrador.evently.products.dto.ProductDTO;
 import com.integrador.evently.products.model.Product;
-import com.integrador.evently.users.model.User;
+import com.integrador.evently.products.service.ProductService;
 import com.integrador.evently.users.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,12 +20,13 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
-
+    private final ProductService productService;
     private final ModelMapper modelMapper;
 
-    public BookingService(BookingRepository bookingRepository , UserRepository userRepository , ModelMapper modelMapper) {
+    public BookingService(BookingRepository bookingRepository , UserRepository userRepository , ProductService productService, ModelMapper modelMapper) {
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
+        this.productService = productService;
         this.modelMapper = modelMapper;
     }
 
@@ -39,38 +40,17 @@ public class BookingService {
     public Booking createBooking(BookingDTO booking) throws Exception {
         userRepository.findById(booking.getUserId())
                 .orElseThrow(() -> new Exception("User not found"));
-        List<ProductDTO> productsInConflict = checkAvailability(booking);
-
-        if(productsInConflict.isPresent()){
-            throw new Exception("The following products are already booked " + productsInConflict);
-        }
 
         Booking bookingEntity = modelMapper.map(booking, Booking.class);
         bookingEntity.setId(null);
         return bookingRepository.save(bookingEntity);
     }
 
-    public Optional<List<BookingDTO>> getBookingsByDateRange(LocalDateTime startDateTime, LocalDateTime endDateTime){
-        List<BookingDTO> bookings = new java.util.ArrayList<>(bookingRepository.findAll().stream()
-                .map(booking -> modelMapper.map(booking, BookingDTO.class)).toList());
-
-        List<BookingDTO> bookingsInRange = new ArrayList<>();
-
-        bookings.forEach(booking ->  {
-            if ((startDateTime.isAfter(booking.getStartDateTime()) || startDateTime.isEqual(booking.getStartDateTime()))
-                    && (startDateTime.isBefore(booking.getEndDateTime()) || startDateTime.isEqual(booking.getEndDateTime()))){
-                bookingsInRange.add(booking);
-            }else if ((endDateTime.isAfter(booking.getStartDateTime()) || endDateTime.isEqual(booking.getStartDateTime()))
-                    && (endDateTime.isBefore(booking.getEndDateTime()) || endDateTime.isEqual(booking.getEndDateTime()))){
-                bookingsInRange.add(booking);
-            };
-        });
-
-        if (!bookingsInRange.isEmpty()) {
-            return Optional.of(bookingsInRange);
-        }else {
-            return Optional.empty();
-        }
+    public List<BookingDTO> getBookingsBetweenDates(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        List<Booking> bookings = bookingRepository.findByStartDateTimeBetween(startDateTime, endDateTime);
+        return bookings.stream()
+                .map(booking -> modelMapper.map(booking, BookingDTO.class))
+                .collect(Collectors.toList());
     }
 
     public List<ProductDTO> checkAvailability(BookingDTO booking){

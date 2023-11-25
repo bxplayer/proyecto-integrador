@@ -13,6 +13,5 @@ public class BookingDTO {
     private Long userId;
     @NotNull
     private LocalDate eventDate;
-    @NotNull
     private List<Long> productIds;
 }
