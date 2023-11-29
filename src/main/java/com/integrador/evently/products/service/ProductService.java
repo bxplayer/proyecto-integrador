@@ -44,6 +44,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public List<ProductDTO> getProductsByProviderId(Long id) {
+        List<Product> products = productRepository.findByProviderId(id);
+        return (!products.isEmpty()) ? products.stream()
+                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList()) : null;
+    }
+
+    @Override
     public ProductDTO saveProduct(ProductDTO productDTO) {
         Product product = modelMapper.map(productDTO, Product.class);
         product = productRepository.save(product);

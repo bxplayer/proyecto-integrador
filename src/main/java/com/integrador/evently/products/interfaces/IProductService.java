@@ -10,6 +10,7 @@ public interface IProductService {
     List<ProductDTO> getAllProducts();
     ProductDTO getProductById(Long id);
     List<ProductDTO> getProductsByCategoryId(Long id);
+    List<ProductDTO> getProductsByProviderId(Long id);
     ProductDTO saveProduct(ProductDTO productDTO);
     ProductDTO updateProduct(Long id, ProductDTO productDTO);
     void deleteProduct(Long id);
