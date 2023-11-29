@@ -32,6 +32,14 @@ public class ProductController implements IProductController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<ProductDTO>> getProductsByCategoryId(@PathVariable Long id) {
+        List<ProductDTO> productsDTO = productService.getProductsByCategoryId(id);
+        return (productsDTO != null)
+                ? new ResponseEntity<>(productsDTO, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping
     public ResponseEntity<ProductDTO> saveProduct(@RequestBody ProductDTO productDTO) {
         ProductDTO savedProduct = productService.saveProduct(productDTO);
